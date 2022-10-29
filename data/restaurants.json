@@ -5,5 +5,12 @@
     "cuisine": "Italian",
     "website": "https://mytest.com",
     "description": "Awesome"
+  },
+  {
+    "name": "Restaurant Title",
+    "address": "Address of the restaurant, including city",
+    "cuisine": "Mexican",
+    "website": "https://mexican.com",
+    "description": "A short description, explaining why this restaurant is awesome!"
   }
 ]

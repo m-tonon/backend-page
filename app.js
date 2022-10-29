@@ -24,9 +24,10 @@ app.get('/restaurants', function (req, res) {
   const fileData = fs.readFileSync(filePath);
   const storedRestaurants = JSON.parse(fileData);
 
-  res.render('restaurants', { numberOfRestaurants: storedRestaurants.length });
-  // first object renders the page 
-  // second object shows the number of restaurants stored on JSON file
+  res.render('restaurants', {
+    numberOfRestaurants: storedRestaurants.length,
+    restaurants: storedRestaurants,
+  });
 });
 
 app.get('/recommend', function (req, res) {
