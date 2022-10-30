@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path'); // build-in path package to construct routes
 
 const express = require('express');
+const uuid = require('uuid'); // require the uuid third package
 
 const app = express();
 
@@ -30,12 +31,22 @@ app.get('/restaurants', function (req, res) {
   });
 });
 
-app.get('/restaurants/:id', function (req, res){ // this define a dynamic route
+app.get('/restaurants/:id', function (req, res) {
+  // this define a dynamic route
   const restaurantId = req.params.id;
-  res.render('restaurant-detail', { rid:restaurantId })
+  const filePath = path.join(__dirname, 'data', 'restaurants.json');
 
-}); 
+  const fileData = fs.readFileSync(filePath);
+  const storedRestaurants = JSON.parse(fileData);
 
+  for (const restaurant of storedRestaurants) {
+    if (restaurant.id === restaurantId) {
+      return res.render('restaurant-detail', { restaurant: restaurant });
+      // the first restaurant from {} is indexed to the h1 element on restaurant-detail.ejs
+      // the second one is indexed to the constant of the loop
+    }
+  }
+});
 
 app.get('/recommend', function (req, res) {
   res.render('recommend');
@@ -43,6 +54,10 @@ app.get('/recommend', function (req, res) {
 
 app.post('/recommend', function (req, res) {
   const restaurant = req.body;
+  restaurant.id = uuid.v4(); //generate an id to the restaurant object
+
+  // accessing a property that dont exist, JS will create it
+
   const filePath = path.join(__dirname, 'data', 'restaurants.json');
 
   const fileData = fs.readFileSync(filePath);
