@@ -85,4 +85,8 @@ app.use(function (req, res) {
   res.render('404');
 }) // function to redirect to 404 page for all non-exists routes
 
+app.use(function(error, req, res, next) { // error is generated automatically by express
+  res.render('500');
+})
+
 app.listen(3000);
