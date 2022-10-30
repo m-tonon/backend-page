@@ -58,17 +58,12 @@ app.get('/recommend', function (req, res) {
 app.post('/recommend', function (req, res) {
   const restaurant = req.body;
   restaurant.id = uuid.v4(); //generate an id to the restaurant object
-
   // accessing a property that dont exist, JS will create it
+  const restaurants = getStoredRestaurants();
 
-  const filePath = path.join(__dirname, 'data', 'restaurants.json');
+  restaurants.push(restaurant);
 
-  const fileData = fs.readFileSync(filePath);
-  const storedRestaurants = JSON.parse(fileData);
-
-  storedRestaurants.push(restaurant);
-
-  fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
+  storeRestaurants(restaurants);
 
   res.redirect('/confirm');
 });
