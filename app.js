@@ -82,7 +82,7 @@ app.get('/about', function (req, res) {
 });
 
 app.use(function (req, res) {
-  res.redirect('404');
+  res.render('404');
 }) // function to redirect to 404 page for all non-exists routes
 
 app.listen(3000);
