@@ -3,6 +3,7 @@ const path = require('path'); // build-in path package to construct routes
 
 const express = require('express');
 const uuid = require('uuid'); // require the uuid third package
+const { render } = require('ejs');
 
 const app = express();
 
@@ -32,7 +33,7 @@ app.get('/restaurants', function (req, res) {
 });
 
 app.get('/restaurants/:id', function (req, res) {
-  // this define a dynamic route
+  // this define a dynamic route called 'id'
   const restaurantId = req.params.id;
   const filePath = path.join(__dirname, 'data', 'restaurants.json');
 
@@ -46,6 +47,8 @@ app.get('/restaurants/:id', function (req, res) {
       // the second one is indexed to the constant of the loop
     }
   }
+
+  res.render('404');
 });
 
 app.get('/recommend', function (req, res) {
